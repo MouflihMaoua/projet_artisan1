@@ -1,7 +1,78 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Shield, CreditCard, Headphones, Star } from 'lucide-react';
 
 const Benefits = () => {
+  const [counters, setCounters] = useState({
+    satisfaction: 0,
+    responseTime: 0,
+    warranty: 0
+  });
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const sectionRef = useRef(null);
+
+  // Animation au scroll
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasAnimated) {
+            setHasAnimated(true);
+            // Animation des compteurs
+            animateCounter('satisfaction', 98, 2000);
+            animateCounter('responseTime', 24, 1800);
+            animateCounter('warranty', 5, 2200);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, [hasAnimated]);
+
+  const animateCounter = (key, target, duration) => {
+    const startTime = Date.now();
+    const startValue = 0;
+
+    const updateCounter = () => {
+      const currentTime = Date.now();
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Easing function pour une animation fluide
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      let currentValue = startValue + (target - startValue) * easeOutQuart;
+      
+      // Formatage spécial pour les différents types
+      if (key === 'satisfaction') {
+        currentValue = Math.floor(currentValue) + '%';
+      } else if (key === 'responseTime') {
+        currentValue = Math.floor(currentValue) + 'h';
+      } else if (key === 'warranty') {
+        currentValue = Math.floor(currentValue) + ' ans';
+      }
+      
+      setCounters(prev => ({
+        ...prev,
+        [key]: currentValue
+      }));
+
+      if (progress < 1) {
+        requestAnimationFrame(updateCounter);
+      }
+    };
+
+    requestAnimationFrame(updateCounter);
+  };
+
   const benefits = [
     {
       icon: Shield,
@@ -30,7 +101,7 @@ const Benefits = () => {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-br from-beige to-soft-pink">
+    <section ref={sectionRef} className="py-20 bg-gradient-to-br from-bg-light to-neutral-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
@@ -87,15 +158,15 @@ const Benefits = () => {
         <div className="mt-16 bg-white rounded-3xl p-8 shadow-lg">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div>
-              <div className="text-3xl font-bold text-primary mb-2">98%</div>
+              <div className="text-3xl font-bold text-primary mb-2">{hasAnimated ? counters.satisfaction : '0%'}</div>
               <div className="text-gray-600">Clients satisfaits</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-primary mb-2">24h</div>
+              <div className="text-3xl font-bold text-primary mb-2">{hasAnimated ? counters.responseTime : '0h'}</div>
               <div className="text-gray-600">Temps de réponse moyen</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-primary mb-2">5 ans</div>
+              <div className="text-3xl font-bold text-primary mb-2">{hasAnimated ? counters.warranty : '0 ans'}</div>
               <div className="text-gray-600">Garantie sur nos travaux</div>
             </div>
           </div>

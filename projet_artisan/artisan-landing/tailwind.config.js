@@ -7,13 +7,41 @@ export default {
   theme: {
     extend: {
       colors: {
-        'soft-pink': '#FFE5EC',
-        'soft-red': '#FFB5B5',
-        'coral': '#FF8A80',
-        'beige': '#F5E6D3',
-        'cream': '#FFF8F3',
-        'primary': '#FF6B6B',
-        'secondary': '#4ECDC4',
+        // Couleurs principales - Palette professionnelle
+        'primary': '#2563EB',      // Bleu vif moderne
+        'primary-dark': '#1E40AF',  // Bleu foncé
+        'primary-light': '#3B82F6', // Bleu clair
+        'secondary': '#F59E0B',     // Orange ambre
+        'secondary-dark': '#D97706', // Orange foncé
+        'secondary-light': '#FCD34D', // Orange clair
+        
+        // Couleurs d'accent - Palette bleue
+        'accent': '#3B82F6',        // Bleu clair
+        'accent-dark': '#2563EB',   // Bleu primaire
+        'accent-light': '#60A5FA',  // Bleu très clair
+        
+        // Couleurs neutres - Palette grise
+        'neutral-50': '#F9FAFB',
+        'neutral-100': '#F3F4F6',
+        'neutral-200': '#E5E7EB',
+        'neutral-300': '#D1D5DB',
+        'neutral-400': '#9CA3AF',
+        'neutral-500': '#6B7280',
+        'neutral-600': '#4B5563',
+        'neutral-700': '#374151',
+        'neutral-800': '#1F2937',
+        'neutral-900': '#111827',
+        
+        // Couleurs de fond - Palette douce
+        'bg-light': '#FAFBFC',      // Fond très clair
+        'bg-medium': '#F8FAFC',      // Fond moyen
+        'bg-dark': '#0F172A',       // Fond sombre
+        
+        // Couleurs de statut
+        'success': '#10B981',
+        'warning': '#F59E0B',
+        'error': '#EF4444',
+        'info': '#3B82F6',
       },
       fontFamily: {
         'sans': ['Inter', 'system-ui', 'sans-serif'],

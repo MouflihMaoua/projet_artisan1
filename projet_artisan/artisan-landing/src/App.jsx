@@ -10,7 +10,7 @@ import Footer from './components/Footer';
 
 function App() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-cream via-soft-pink to-beige">
+    <div className="min-h-screen bg-gradient-to-br from-bg-light via-neutral-50 to-neutral-100">
       <Navbar />
       <Hero />
       <Categories />
